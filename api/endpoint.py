@@ -4,6 +4,8 @@ rest.py
 import requests
 
 from config import API_URL
+from util import logger
+import validators
 
 class Endpoint:
     """
@@ -32,16 +34,20 @@ class Endpoint:
         if self.path.endswith('/'):
             raise ValueError('Path must not end with /')
 
-    def url(self, record_id : int = -1, ext : str = 'json'):
+    def url(self, record_id : int | None = None, ext : str = 'json'):
         """
         Returns the full URL of the endpoint.
         """
-        if record_id != -1:
-            return f'{API_URL}{self.path}/{record_id}.{ext}'
-
-        index_suffix = 's' if self.path.endswith('s') else ''
-
-        return f'{API_URL}{self.path}{index_suffix}.{ext}'
+        result = None
+        if record_id is not None:
+            result = f'{API_URL}{self.path}/{record_id}.{ext}'
+        else:
+            index_suffix = '' if self.path.endswith('s') else 's'
+            result = f'{API_URL}{self.path}{index_suffix}.{ext}'
+        if not validators.url(result):
+            raise ValueError(f'Invalid URL: {result}')
+        logger.debug(f'Built URL: {result}')
+        return result
 
     def headers(self):
         """
