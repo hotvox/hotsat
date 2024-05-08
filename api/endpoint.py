@@ -39,7 +39,9 @@ class Endpoint:
         if record_id != -1:
             return f'{API_URL}{self.path}/{record_id}.{ext}'
 
-        return f'{API_URL}{self.path}.{ext}'
+        index_suffix = 's' if self.path.endswith('s') else ''
+
+        return f'{API_URL}{self.path}{index_suffix}.{ext}'
 
     def headers(self):
         """
