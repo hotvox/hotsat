@@ -1,8 +1,7 @@
 """
 action_queue.py
 """
-import util.logger as logger
-
+from util import logger
 from action.action import Action
 
 class ActionQueue:
@@ -17,9 +16,10 @@ class ActionQueue:
         """
         Add an action to the queue.
         """
+        logger.debug(f'Queueing action: {action.klass.__name__} with payload: {action.payload}')
         self.queue.append(action)
 
-    def pop(self):
+    def pop(self) -> Action:
         """
         Pop an action from the queue.
         """
@@ -32,9 +32,12 @@ class ActionQueue:
         while len(self.queue) > 0:
             action = self.pop()
             logger.info(f'Executing action: {action.klass.__name__} with payload: {action.payload}')
-            
+
             try:
                 action.execute(state)
             # pylint: disable=broad-except
             except Exception as e:
-                logger.error(f'Error executing action: {action.klass.__name__} with payload: {action.payload}', e)
+                logger.error(
+                    f'Error executing: {action.klass.__name__} with payload: {action.payload}',
+                    e
+                )
