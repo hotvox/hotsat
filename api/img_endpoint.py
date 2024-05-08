@@ -10,4 +10,4 @@ class ImgEndpoint(Endpoint):
     """
 
     def __init__(self):
-        super().__init__('/img')
+        super().__init__('/imgs')

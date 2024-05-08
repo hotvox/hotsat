@@ -11,7 +11,7 @@ class ActionEndpoint(Endpoint):
     """
 
     def __init__(self):
-        super().__init__('/action')
+        super().__init__('/actions')
 
     def get_actions(self) -> list[Action]:
         """

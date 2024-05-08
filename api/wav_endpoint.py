@@ -10,4 +10,4 @@ class WavEndpoint(Endpoint):
     """
 
     def __init__(self):
-        super().__init__('/wav')
+        super().__init__('/wavs')

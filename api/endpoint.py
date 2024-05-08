@@ -42,8 +42,7 @@ class Endpoint:
         if record_id is not None:
             result = f'{API_URL}{self.path}/{record_id}.{ext}'
         else:
-            index_suffix = '' if self.path.endswith('s') else 's'
-            result = f'{API_URL}{self.path}{index_suffix}.{ext}'
+            result = f'{API_URL}{self.path}.{ext}'
         if not validators.url(result):
             raise ValueError(f'Invalid URL: {result}')
         logger.debug(f'Built URL: {result}')
