@@ -7,7 +7,7 @@ from action.play_wav import PlayWav
 from action.display_img import DisplayImg
 
 # given a string, return the corresponding action class
-def parse_action(action_str : str) -> Action:
+def parse_action(klass : str) -> Action:
     """
     Parse an action string into an action class.
 
@@ -17,8 +17,8 @@ def parse_action(action_str : str) -> Action:
     Returns:
         Action: The action class corresponding to the action string.
     """
-    if action_str == 'PlayWav':
+    if klass == 'PlayWav':
         return PlayWav
-    if action_str == 'DisplayImg':
+    if klass == 'DisplayImg':
         return DisplayImg
-    raise ValueError(f'Invalid action string: {action_str}')
+    raise ValueError(f'Invalid action string: {klass}')
