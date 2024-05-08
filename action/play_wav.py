@@ -59,7 +59,7 @@ class PlayWav(Action):
         _format = p.get_format_from_width(wf.getsampwidth())
         _channels = wf.getnchannels()
         _device_info = self.match_device(p, AUDIO_OUTPUT_MATCH_SUBSTRING)
-        _rate = int(_device_info['defaultSampleRate'])
+        _rate = int(wf.getframerate()) #int(_device_info['defaultSampleRate'])
 
         logger.debug(
             f'format={_format} channels={_channels} rate={_rate} device={_device_info["name"]}'
