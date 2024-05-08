@@ -5,6 +5,7 @@ import os
 import wave
 
 import requests
+import validators
 
 from action.action import Action
 from config import AUDIO_OUTPUT_MATCH_SUBSTRING
@@ -20,6 +21,9 @@ class PlayWav(Action):
 
         if 'url' not in payload:
             raise ValueError('URL not provided in payload')
+
+        if not validators.url(payload['url']):
+            raise ValueError('Invalid URL provided in payload')
 
     def match_device(self, p, match_substring):
         """
