@@ -5,9 +5,9 @@ import os
 import wave
 
 import requests
-import validators
 
 from action.action import Action
+from api.wav_endpoint import WavEndpoint
 from config import AUDIO_OUTPUT_MATCH_SUBSTRING
 import util.logger as logger
 
@@ -19,11 +19,10 @@ class PlayWav(Action):
     def __init__(self, payload):
         super().__init__(PlayWav, payload)
 
-        if 'url' not in payload:
-            raise ValueError('URL not provided in payload')
+        if 'record_id' not in payload:
+            raise ValueError('Record ID not provided in payload')
 
-        if not validators.url(payload['url']):
-            raise ValueError('Invalid URL provided in payload')
+        self.url = WavEndpoint().url(payload['record_id'], 'wav')
 
     def match_device(self, p, match_substring):
         """
@@ -40,7 +39,7 @@ class PlayWav(Action):
         """
         Execute the play wav action.
         """
-        response = requests.get(self.payload['url'], timeout=5)
+        response = requests.get(self.url, timeout=5)
 
         if response.status_code != 200:
             raise requests.exceptions.RequestException(
