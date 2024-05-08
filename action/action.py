@@ -2,7 +2,7 @@
 action.py
 """
 
-from api.endpoint import ActionEndpoint
+from api.action_endpoint import ActionEndpoint
 
 class Action:
     """
