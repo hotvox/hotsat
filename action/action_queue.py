@@ -34,6 +34,9 @@ class ActionQueue:
             logger.info(f'Executing action: {action.klass.__name__} with payload: {action.payload}')
 
             try:
+                # delete the action from the server but keep it in memory
+                action.delete()
+
                 action.execute(state)
             # pylint: disable=broad-except
             except Exception as e:

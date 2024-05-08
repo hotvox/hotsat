@@ -72,3 +72,20 @@ class Endpoint:
             timeout=5
         )
         return response.json()
+
+    def delete(self, record_id : int):
+        """
+        Perform a DELETE request.
+
+        Args:
+            id (int): The ID of the object to delete.
+
+        Returns:
+            dict: The response from the server.
+        """
+        response = requests.delete(
+            self.url(record_id),
+            headers=self.headers(),
+            timeout=5
+        )
+        return response.json()
