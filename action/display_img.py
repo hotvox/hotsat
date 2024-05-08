@@ -3,9 +3,9 @@ display_img.py
 """
 
 import subprocess
-import validators
 
 from action.action import Action
+from api.img_endpoint import ImgEndpoint
 
 class DisplayImg(Action):
     """
@@ -18,10 +18,7 @@ class DisplayImg(Action):
         if 'url' not in payload:
             raise ValueError('URL not provided in payload')
 
-        if not validators.url(payload['url']):
-            raise ValueError('Invalid URL provided in payload')
-
-        # Check if the URL is a valid URL
+        self.url = ImgEndpoint().url(payload['record_id'], payload['format'])
 
 
     def execute(self, state):
@@ -37,7 +34,7 @@ class DisplayImg(Action):
                 '--hide-pointer',
                 '--fullscreen',
                 '--image-bg', 'black',
-                self.payload['url']
+                self.url
             ],
             check=True
         )
