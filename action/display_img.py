@@ -13,8 +13,8 @@ class DisplayImg(Action):
     Class to represent an action to display an image.
     """
 
-    def __init__(self, payload):
-        super().__init__(DisplayImg, payload)
+    def __init__(self, action_id, payload):
+        super().__init__(DisplayImg, action_id, payload)
         self.record_id = payload['record_id']
         self.format = payload['format']
         self.url = ImgEndpoint().url(payload['record_id'], payload['format'])

@@ -16,8 +16,8 @@ class PlayWav(Action):
     Class to represent a play wav action.
     """
 
-    def __init__(self, payload):
-        super().__init__(PlayWav, payload)
+    def __init__(self, action_id, payload):
+        super().__init__(PlayWav, action_id, payload)
 
         if 'record_id' not in payload:
             raise ValueError('Record ID not provided in payload')

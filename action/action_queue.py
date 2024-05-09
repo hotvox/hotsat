@@ -17,7 +17,7 @@ class ActionQueue:
         """
         Add an action to the queue.
         """
-        logger.debug(f'Queueing action: {action.klass.__name__} with payload: {action.payload}')
+        logger.debug(f'Queueing action: {action}')
         self.queue.append(action)
 
     def pop(self) -> Action:
@@ -32,16 +32,16 @@ class ActionQueue:
         """
         while len(self.queue) > 0:
             action = self.pop()
-            logger.info(f'Executing action: {action.klass.__name__} with payload: {action.payload}')
+            logger.info(f'Executing action: {action}')
 
             try:
                 # delete the action from the server but keep it in memory
-                ActionEndpoint().delete(action.payload['id'])
+                ActionEndpoint().delete(action.action_id)
 
                 action.execute(state)
             # pylint: disable=broad-except
             except Exception as e:
                 logger.error(
-                    f'Error executing: {action.klass.__name__} with payload: {action.payload}',
+                    f'Error executing: {action}',
                     e
                 )
