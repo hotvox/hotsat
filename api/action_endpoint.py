@@ -27,6 +27,9 @@ class ActionEndpoint(Endpoint):
             # validate that the entry is a dictionary and has a klass and payload key
             if not isinstance(entry, dict):
                 raise ValueError('Entry must be a dictionary')
+            
+            if 'id' not in entry:
+                raise ValueError('Entry must have an id key')
 
             if 'klass' not in entry:
                 raise ValueError('Entry must have a klass key')
@@ -34,8 +37,9 @@ class ActionEndpoint(Endpoint):
             if 'payload' not in entry:
                 raise ValueError('Entry must have a payload key')
 
+            action_id = entry['id']
             klass = parse_action(entry['klass'])
             payload = entry['payload']
-            actions.append(klass(payload))
+            actions.append(klass(action_id, payload))
 
         return actions
