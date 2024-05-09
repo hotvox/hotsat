@@ -3,6 +3,7 @@ action_queue.py
 """
 from util import logger
 from action.action import Action
+from api.action_endpoint import ActionEndpoint
 
 class ActionQueue:
     """
@@ -35,7 +36,7 @@ class ActionQueue:
 
             try:
                 # delete the action from the server but keep it in memory
-                action.delete()
+                ActionEndpoint().delete(action.payload['id'])
 
                 action.execute(state)
             # pylint: disable=broad-except

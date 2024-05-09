@@ -2,8 +2,6 @@
 action.py
 """
 
-from api.action_endpoint import ActionEndpoint
-
 class Action:
     """
     Class to represent an action that can be held in a queue.
@@ -19,8 +17,3 @@ class Action:
         """
         raise NotImplementedError
 
-    def delete(self):
-        """
-        Delete the action.
-        """
-        ActionEndpoint().delete(self.payload['id'])
